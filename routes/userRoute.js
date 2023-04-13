@@ -215,7 +215,7 @@ router.put('/updatePassword', isAuthenticated, async (req, res) => {
 });
 
 // Get all the users profile details => not done
-router.get('/allProfiles', isAuthenticated, async (req, res) => {
+router.get('/allProfiles', async (req, res) => {
   try {
     const users = await UserModel.find().select('name profilePicUrl');
 

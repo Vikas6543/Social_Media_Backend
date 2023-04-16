@@ -23,11 +23,7 @@ const userSchema = new Schema({
     enum: ['user', 'admin'],
     default: 'user',
   },
-  profilePicUrl: {
-    type: String,
-    default:
-      'https://res.cloudinary.com/vikasnisha/image/upload/v1595001560/dermatology-NMKiron---62959-4369_eib8cb.jpg',
-  },
+  profilePicUrl: { type: String, default: '' },
   post: [
     {
       type: Schema.Types.ObjectId,
@@ -46,6 +42,15 @@ const userSchema = new Schema({
       ref: 'User',
     },
   ],
+});
+
+// set the default profile pic url
+userSchema.pre('save', function (next) {
+  if (this.profilePicUrl === '') {
+    this.profilePicUrl =
+      'https://res.cloudinary.com/vikasnisha/image/upload/v1595001560/dermatology-NMKiron---62959-4369_eib8cb.jpg';
+  }
+  next();
 });
 
 // hashing the password before saving it to the database
